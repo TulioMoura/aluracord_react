@@ -122,12 +122,14 @@ function Title(props){
                 type='submit'
                 label='Entrar'
                 fullWidth
+                
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["000"],
                   mainColor: appConfig.theme.colors.primary[500],
                   mainColorLight: appConfig.theme.colors.primary[400],
-                  mainColorStrong: appConfig.theme.colors.primary[600],
+                  mainColorStrong: appConfig.theme.colors.neutrals[800],
                 }}
+                
               />
             </Box>
             {/* Formulário */}
@@ -157,10 +159,10 @@ function Title(props){
                 src={`https://github.com/${username}.png`}
               />
               <Text
-                variant="body4"
+                variant="body2"
                 styleSheet={{
                   color: appConfig.theme.colors.neutrals[200],
-                  backgroundColor: appConfig.theme.colors.neutrals[900],
+                  backgroundColor: appConfig.theme.colors.neutrals[800],
                   padding: '3px 10px',
                   borderRadius: '1000px'
                 }}
