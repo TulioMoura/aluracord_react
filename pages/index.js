@@ -42,11 +42,19 @@ function Title(props){
 
  export default  function  PaginaInicial() {
     //const username = 'TulioMoura';
-    const [username, setUserName] = React.useState('');
+    const [username, setUserName] = React.useState('TulioMoura');
    const [githubInfo, setGithubInfo] = React.useState('');
     const roteamento = useRouter()
      
-    
+     function loadUserData({}){
+       fetch(`https://api.github.com/users/${username}`)
+                .then(response=> response.json())
+                .then(function(body){
+                  setGithubInfo(body)
+                })
+                 
+                  
+    }
                    
    
     return (
@@ -59,16 +67,20 @@ function Title(props){
             backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
           }}
         >
-          <Box
+         
+
+          
+          <Box 
             styleSheet={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              flexDirection: {
+               flexDirection: {
                 xs: 'column',
                 sm: 'row',
-              },
+              }, 
               width: '100%', maxWidth: '700px',
+              height : '50%',
               borderRadius: '10px', padding: '32px', margin: '16px',
               boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
               backgroundColor: appConfig.theme.colors.neutrals[700],
@@ -97,29 +109,26 @@ function Title(props){
               
               
            
+              <Box styleSheet={{
+                width: '100%',
+                display:'flex',
+                maxHeight:'34px',
+                margin: '8px'
+                
+              }}>
               <TextField value={username}
-              fullWidth
+              styleSheet={{
+                width: '80%',
+                maxWidth: '700px',
+                borderRadius: '4px 0px  0px 4px' 
+              }}
               onChange={async function(e){
                 let user= e.target.value
-                let userlenght= user.length;
-                setUserName(user);
-                    console.log(`https://api.github.com/users/${user}`)
-                    await fetch(`https://api.github.com/users/${user}`)
-                  .then(function (response){
-                   
-                    if(!response.ok){
-                      return console.log("Erro! ", response.status)
-                    }
-                    setGithubInfo(JSON.stringify(response)) 
-                  console.log(githubInfo)
-
-                  })
-                  
-                      
                 
-                  
-                           
-              }
+                setUserName(user);
+                    
+                    
+   }
             }
                 textFieldColors={{
                   neutral: {
@@ -130,7 +139,29 @@ function Title(props){
                   },
                 }}
                 
-              />
+              >
+                
+              </TextField>
+
+               <Button label= 'Preview' 
+              onClick={loadUserData}
+              buttonColors={{
+                contrastColor: appConfig.theme.colors.neutrals["200"],
+                mainColor: appConfig.theme.colors.primary[400],
+                mainColorLight: appConfig.theme.colors.primary[400],
+                
+              }}
+              styleSheet={{
+                fontSize:'14px',
+                paddingTop:'8px',
+                paddingBottom:'8px',
+                paddingLeft:'12px',
+                paddingRight:'12px',
+
+                borderRadius: '0px 4px  4px 0px'
+              }}
+              /> 
+              </Box>
               <Button
                 type='submit'
                 label='Entrar'
@@ -185,13 +216,32 @@ function Title(props){
               >
                 {username}
                 
-              </Text></>
+                
+              </Text>
+              
+              </>
             ):(<></>)}
             </Box>
             
+              
+            
+            
             {/* Photo Area */}
           </Box>
-        </Box>
+          <Text styleSheet={{
+            width: '100%', maxWidth: '700px',
+            minHeight:'25%',
+            maxHeight:'50%',
+            borderRadius: '10px', padding: '32px', margin: '16px',
+            boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
+            backgroundColor: appConfig.theme.colors.neutrals[700],
+            opacity: 0.9,
+          }}>
+                <br/>
+                Descrição : {githubInfo.bio}
+              </Text>
+          </Box>
+        
       </>
     );
   }
