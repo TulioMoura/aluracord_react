@@ -212,6 +212,7 @@ function Title(props){
                   backgroundColor: appConfig.theme.colors.neutrals[800],
                   padding: '3px 10px',
                   borderRadius: '1000px'
+                  
                 }}
               >
                 {username}
@@ -236,6 +237,7 @@ function Title(props){
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
             backgroundColor: appConfig.theme.colors.neutrals[700],
             opacity: 0.9,
+            color: appConfig.theme.colors.neutrals["000"]
           }}>
                 <br/>
                 Descrição : {githubInfo.bio}
