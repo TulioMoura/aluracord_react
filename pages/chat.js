@@ -12,11 +12,16 @@ export default function ChatPage() {
     function handleMessageList(newMessage){
         const message = {
             from: 'tulio',
-            id : messageList.length+1,
+            id : "tulio"+Date.now(),
             message : newMessage,
         }
         setMessageList([message,...messageList])
                                     setMensagem('')
+    }
+    function deletehandl(id){
+        
+        setMessageList(messageList.filter(message => message.id != id))
+        
     }
     
     return (
@@ -57,11 +62,11 @@ export default function ChatPage() {
                     }}
                 >
 
-                  <MessageList mensagem={messageList} /> 
+                  <MessageList mensagem={messageList} deleteHandler={deletehandl} /> 
                     {/* lista de mensagens {messageList.map((actualMessage)=>{
                         return (
                             <li key = {actualMessage.id}>
-                                {actualMessage.from}: {actualMessage.message}
+                                {actualMessage.from}: {actualMessage.message}   
                             </li>
                         )
                     })} */}
@@ -95,9 +100,9 @@ export default function ChatPage() {
 
                             onKeyPress={(e)=>{
                                 
-                                if(e.key === 'Enter'){
+                                if(e.key == 'Enter'){
                                     e.preventDefault();
-                                  
+                                    handleMessageList(mensagem)
                                 }
                             }}
                         />
@@ -144,8 +149,7 @@ function Header() {
     )
 }
 
-function MessageList({mensagem}) {
-    
+function MessageList({mensagem,deleteHandler}) {
     return (
         <Box
             tag="ul"
@@ -178,9 +182,12 @@ function MessageList({mensagem}) {
                 <Box
                     styleSheet={{
                         marginBottom: '8px',
+                        display:"flex",
+                        justifyContent:"space-between"
                     }}
                 >
-                    <Image
+                    <Box>
+                        <Image
                         styleSheet={{
                             width: '20px',
                             height: '20px',
@@ -188,7 +195,7 @@ function MessageList({mensagem}) {
                             display: 'inline-block',
                             marginRight: '8px',
                         }}
-                        src={`https://github.com/vanessametonini.png`}
+                        src={`https://github.com/TulioMoura.png`}
                     />
                     <Text tag="strong">
                         {actualMessage.from}
@@ -203,8 +210,26 @@ function MessageList({mensagem}) {
                     >
                         {(new Date().toLocaleDateString())}
                     </Text>
+                    </Box>
+                    
+                    <Button
+                styleSheet={{
+                    margin:"0px",
+                    padding :"0px",
+                    backgroundColor:"#00000000",
+                    hover:{
+                        backgroundColor:"#00000000",
+                        color:"#6e0910"
+                    }
+                }}
+                    onClick={(e)=>{
+                        deleteHandler(actualMessage.id)
+                    }}
+                label = "⨉"
+              />
                 </Box>
                 {actualMessage.message}
+                
             </Text>
                     )
                 })
